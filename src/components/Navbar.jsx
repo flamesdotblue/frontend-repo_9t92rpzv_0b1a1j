@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Heart, Globe, Moon, Sun, Languages } from 'lucide-react';
+import { Heart, Globe, Moon, Sun, Languages, LogIn, UserPlus } from 'lucide-react';
 
 const LANGUAGES = [
   { code: 'en', label: 'English' },
@@ -15,7 +15,7 @@ const LANGUAGES = [
   { code: 'or', label: 'ଓଡ଼ିଆ' },
 ];
 
-export default function Navbar({ language, setLanguage }) {
+export default function Navbar({ language, setLanguage, onOpenAuth }) {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
@@ -67,13 +67,20 @@ export default function Navbar({ language, setLanguage }) {
             {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             <span className="hidden sm:inline">{dark ? 'Light' : 'Dark'}</span>
           </button>
-          <a
-            href="#get-started"
-            className="ml-2 hidden sm:inline-flex items-center gap-2 rounded-full bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-cyan-500 px-4 py-2 text-white text-sm shadow hover:shadow-md transition"
+          <button
+            onClick={() => onOpenAuth?.('login')}
+            className="hidden sm:inline-flex items-center gap-2 rounded-full border border-zinc-200 dark:border-zinc-800 px-4 py-2 text-sm text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition"
           >
-            <Globe className="h-4 w-4" />
-            Get Started
-          </a>
+            <LogIn className="h-4 w-4" />
+            Log in
+          </button>
+          <button
+            onClick={() => onOpenAuth?.('signup')}
+            className="ml-1 inline-flex items-center gap-2 rounded-full bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-cyan-500 px-4 py-2 text-white text-sm shadow hover:shadow-md transition"
+          >
+            <UserPlus className="h-4 w-4" />
+            Sign up
+          </button>
         </div>
       </nav>
     </header>
